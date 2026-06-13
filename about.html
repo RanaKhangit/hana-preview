@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Founder’s Apothecary — HANA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/hana.css"><link rel="stylesheet" href="css/pages.css">
+</head>
+<body class="world" data-page="about">
+  <div class="ambient" id="ambient"></div>
+  <div class="apoth">
+    <div class="glass"><img id="founder" src="" alt="The founder’s apothecary — pressed flowers in glass"></div>
+    <div class="story">
+      <div class="eyebrow">THE FOUNDER’S APOTHECARY</div>
+      <h1 class="serif">A flower can be a quiet companion</h1>
+      <p>HANA began in a small, light-filled room of pressed flowers and glass — the world of <b>Aliya</b>, founder and botanical storyteller, who has spent years listening to what flowers mean to us when we simply let them keep us company.</p>
+      <p>Her belief is gentle and firm: a flower offers a moment of reflection, presence and symbolic meaning. It meets a feeling with its own character — warmth, stillness, brightness, calm — and reminds us, softly, of something we already hold. That is the whole of HANA: feeling, ritual and old apothecary lore, composed into a small object made for one person.</p>
+      <p>Every blend is arranged by hand, balanced by season and by the quiet proportions the old apothecaries knew. Nothing is mass-made. Nothing is presented as a health claim — HANA speaks through ritual, symbolism and botanical story. Everything is meant to be beautiful, and yours.</p>
+      <div class="sign">— Aliya, founder of HANA</div>
+    </div>
+  </div>
+
+  <script src="js/config/colours.js"></script><script src="js/config/dialogue.js"></script><script src="js/site.js"></script>
+  <script>
+    var R=function(p){ return (window.HANA_ASSETS&&HANA_ASSETS[p])||p; };
+    SITE.applyColours(); SITE.nav('about'); SITE.footer();
+    document.getElementById('founder').src=R('assets/page/about-founder.png');
+    (function(){ var pets=['rose','rose-red','lavender','lily','bluebell','dandelion']; var amb=document.getElementById('ambient');
+      for(var i=0;i<6;i++){ var im=document.createElement('img'); im.src=R('assets/flowers/petals/hero/'+pets[i%pets.length]+'.png');
+        im.style.left=(12+(i*15)%76)+'vw'; im.style.width=(34+(i%3)*16)+'px';
+        im.style.setProperty('--dx',((i%2?1:-1)*6)+'vw'); im.style.setProperty('--dr',(150+i*30)+'deg');
+        im.style.animationDuration=(19+i*2)+'s'; im.style.animationDelay=(-i*2.8)+'s'; amb.appendChild(im); } })();
+  </script>
+</body>
+</html>

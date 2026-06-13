@@ -1,0 +1,218 @@
+/* ============================================================
+   HANA — living botanical intelligence prototype
+   Colours are applied from js/config/colours.js at load
+   (site.js sets these CSS variables), so edit colours there.
+   ============================================================ */
+:root{
+  --hana-bg-top:#f1e7ff; --hana-bg-mid:#e3d0ff; --hana-bg-bottom:#c5a8f2;
+  --hana-ink:#3a2160; --hana-gold:#e9b44c; --hana-rose:#ff5b9e;
+  --hana-glass:rgba(255,255,255,.42); --hana-glass-border:rgba(255,255,255,.6);
+  --hana-panel:rgba(58,33,96,.30); --hana-panel-border:rgba(255,255,255,.45);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:'Manrope',-apple-system,Segoe UI,sans-serif;
+  color:#fff; overflow-x:hidden;
+  background:linear-gradient(180deg,var(--hana-bg-top),var(--hana-bg-mid) 55%,var(--hana-bg-bottom));
+  -webkit-font-smoothing:antialiased;
+}
+.serif{font-family:'Cormorant Garamond',Georgia,serif}
+
+/* ---------- cinematic media layer (z0) ---------- */
+/* Home: a real-petal VIDEO. Secondary pages: each page's own real-photo
+   centrepiece. The canvas (#garden, z2) drifts live petals on top. */
+.herovideo,.pagebg{position:fixed;inset:0;width:100%;height:100%;z-index:0;
+  object-fit:cover;background-size:cover;background-position:center;
+  opacity:0;transition:opacity 1.2s ease}
+.herovideo.ready,.pagebg.ready{opacity:1}
+.pagebg{background-repeat:no-repeat}
+
+/* ---------- cinematic colour grade + readability (z1) ---------- */
+/* Keeps the frame bright and crystal in the centre, gently deepens the top
+   (for the nav) and the bottom (for the input bar / panels) and adds a soft
+   violet vignette so white text always reads. */
+.grade{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:
+    linear-gradient(180deg, rgba(34,15,64,.46) 0%, rgba(34,15,64,.12) 30%, rgba(34,15,64,0) 52%, rgba(34,15,64,.54) 100%),
+    radial-gradient(125% 85% at 50% 40%, rgba(34,15,64,0) 44%, rgba(58,30,104,.34) 100%)}
+.scrim{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(120% 90% at 50% 38%,transparent 55%,rgba(58,30,104,.20) 100%)}
+
+#garden{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:2}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;
+  justify-content:space-between;padding:18px 34px;pointer-events:none}
+.nav a,.nav button{pointer-events:auto}
+.brand{font-family:'Cormorant Garamond',serif;font-size:24px;letter-spacing:.4em;color:#fff;
+  text-decoration:none;text-shadow:0 2px 20px rgba(70,30,110,.5)}
+.brand small{display:block;font-family:'Manrope';font-size:8px;letter-spacing:.4em;
+  color:rgba(255,255,255,.85);margin-top:3px}
+.nav-links{display:flex;gap:22px;align-items:center}
+.nav-links a{color:#fff;text-decoration:none;font-size:12px;letter-spacing:.16em;
+  text-transform:uppercase;opacity:.9;text-shadow:0 2px 14px rgba(70,30,110,.5);transition:opacity .3s}
+.nav-links a:hover,.nav-links a.active{opacity:1;color:#ffe9b8}
+.nav-cta{background:rgba(255,255,255,.9);color:var(--hana-ink);border:0;border-radius:999px;
+  padding:10px 18px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;
+  cursor:pointer;text-decoration:none}
+.nav-burger{display:none}
+
+/* ---------- shared content panel (secondary pages) ---------- */
+.page{position:relative;z-index:10;min-height:100vh;display:flex;align-items:center;
+  justify-content:center;padding:120px 24px 80px}
+.panel{background:var(--hana-panel);border:1px solid var(--hana-panel-border);border-radius:26px;
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding:42px 44px;max-width:980px;width:100%;
+  box-shadow:0 24px 80px rgba(50,20,90,.35)}
+.eyebrow{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#ffe0a8;text-align:center}
+.panel h1{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(34px,5vw,56px);
+  text-align:center;margin:8px 0 6px}
+.panel .lead{text-align:center;font-size:17px;line-height:1.7;color:rgba(255,255,255,.86);
+  max-width:64ch;margin:0 auto 26px}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:10px}
+.card{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);border-radius:18px;
+  padding:22px;backdrop-filter:blur(6px);transition:transform .35s,box-shadow .35s,background .35s}
+.card:hover{transform:translateY(-6px);background:rgba(255,255,255,.2);box-shadow:0 20px 50px rgba(50,20,90,.4)}
+.card .dot{width:14px;height:14px;border-radius:50%;display:inline-block;box-shadow:0 0 16px currentColor;margin-bottom:12px}
+.card h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:24px;margin-bottom:6px}
+.card p{font-size:14px;line-height:1.6;color:rgba(255,255,255,.82)}
+.card .role{margin-top:12px;font-size:13px;letter-spacing:.06em;color:#ffe6b4}
+.card p{font-size:15px;line-height:1.7;color:rgba(255,255,255,.92)}
+/* v2: real-flower hero inside a card (Flower Guides, Journal) */
+.card.flower{text-align:center}
+.card.flower .bloomhero{height:190px;display:flex;align-items:center;justify-content:center;margin:-4px 0 8px;
+  border-radius:16px;background:radial-gradient(60% 60% at 50% 45%, color-mix(in srgb, var(--glow) 30%, transparent), transparent 72%)}
+.card.flower .bloomhero img{max-height:180px;max-width:90%;object-fit:contain;
+  filter:drop-shadow(0 10px 26px rgba(30,8,60,.5))}
+.card.flower h3{font-size:26px}
+/* result page: the real bottle reveal (only here) */
+.bottlehero{display:flex;justify-content:center;margin:-8px 0 16px}
+.bottlehero img{max-height:300px;max-width:82%;object-fit:contain;
+  filter:drop-shadow(0 26px 54px rgba(30,8,60,.55))}
+@media(max-width:760px){ .bottlehero img{max-height:220px} }
+
+/* ---------- home dialogue ---------- */
+/* v2 readability: a soft calm panel sits behind the central copy so text
+   never competes with the petals (translucent only, only where it helps). */
+.stage{position:fixed;inset:0;z-index:10;pointer-events:none}
+.dialogue{position:fixed;top:19%;left:50%;transform:translateX(-50%);width:min(90vw,760px);
+  text-align:center;z-index:12;padding:30px 40px;border-radius:30px;
+  background:radial-gradient(75% 120% at 50% 32%, rgba(34,16,62,.42), rgba(34,16,62,.16) 70%, transparent);
+  backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
+.dspeaker{font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:#ffe6b0;
+  min-height:15px;margin-bottom:14px;transition:color .7s;text-shadow:0 2px 18px rgba(40,10,80,.9)}
+.dline{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(32px,5vw,64px);
+  line-height:1.28;letter-spacing:.005em;color:#fff;
+  text-shadow:0 4px 34px rgba(35,8,70,.96),0 1px 3px rgba(35,8,70,.88);min-height:1.4em}
+.cur{display:inline-block;width:2px;height:.82em;background:#fff;margin-left:3px;
+  vertical-align:-1px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* ---------- input bar ---------- */
+.say{position:fixed;bottom:36px;left:50%;transform:translateX(-50%);z-index:14;pointer-events:auto;
+  display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.45);
+  border-radius:999px;padding:13px 14px 13px 26px;backdrop-filter:blur(10px);box-shadow:0 10px 44px rgba(45,15,85,.4);
+  width:min(86vw,560px);transition:opacity .5s}
+.say input{flex:1;background:transparent;border:0;outline:0;color:#fff;font-size:16px;font-family:'Manrope'}
+.say input::placeholder{color:rgba(255,255,255,.72)}
+.say button{flex:none;width:42px;height:42px;border-radius:50%;border:0;background:#fff;
+  color:var(--hana-ink);font-size:18px;cursor:pointer;transition:transform .15s}
+.say button:active{transform:scale(.9)}
+.say button[type=submit]{background:linear-gradient(135deg,#ffe39a,#ffc24d);color:#5a3b12;
+  box-shadow:0 6px 22px rgba(233,180,76,.55)}
+.say button.mic{flex:none;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.5);
+  background:transparent;color:#fff;cursor:pointer;font-size:15px}
+
+/* ---------- chips (flower-spoken questions) ---------- */
+.chips{position:fixed;bottom:104px;left:50%;transform:translateX(-50%);z-index:14;pointer-events:auto;
+  display:flex;flex-wrap:wrap;gap:10px;justify-content:center;width:min(86vw,620px)}
+.chip{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.4);color:#fff;
+  border-radius:999px;padding:10px 18px;font-size:13px;cursor:pointer;backdrop-filter:blur(6px);
+  transition:background .25s,transform .2s}
+.chip:hover{background:rgba(255,255,255,.34);transform:translateY(-2px)}
+
+/* ---------- flower council cards ---------- */
+.council{position:fixed;left:30px;top:50%;transform:translateY(-50%);z-index:13;
+  display:flex;flex-direction:column;gap:10px;width:240px;pointer-events:auto}
+.fcard{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.32);border-radius:16px;
+  padding:14px 16px;backdrop-filter:blur(8px);opacity:0;transform:translateX(-30px);
+  transition:opacity .6s,transform .6s,background .3s;cursor:pointer}
+.fcard.show{opacity:1;transform:translateX(0)}
+.fcard h4{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:19px;display:flex;
+  align-items:center;gap:8px;margin-bottom:4px}
+.fcard .fdot{width:11px;height:11px;border-radius:50%;box-shadow:0 0 12px currentColor}
+.fcard p{font-size:12.5px;line-height:1.5;color:rgba(255,255,255,.84)}
+.fcard .more{margin-top:6px;font-size:11px;color:#ffe0a8;letter-spacing:.08em}
+
+/* ---------- blend result panel ---------- */
+.blend{position:fixed;right:30px;top:50%;transform:translateY(-50%) translateX(40px);z-index:15;
+  width:340px;opacity:0;transition:opacity .8s,transform .8s;pointer-events:none;
+  background:rgba(58,33,96,.46);border:1px solid rgba(255,255,255,.4);border-radius:24px;
+  padding:26px;backdrop-filter:blur(14px);box-shadow:0 20px 70px rgba(40,12,80,.5)}
+.blend.show{opacity:1;transform:translateY(-50%) translateX(0);pointer-events:auto}
+.blend h2{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:36px;text-align:center;margin:6px 0 2px}
+.blend .ritual-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;
+  text-align:center;color:rgba(255,255,255,.85);margin-bottom:16px}
+.brow{display:flex;align-items:center;gap:10px;margin:9px 0}
+.brow .fdot{width:12px;height:12px;border-radius:50%;flex:none;box-shadow:0 0 10px currentColor}
+.brow .bname{flex:1;font-size:13px}.brow .bname span{display:block;font-size:11px;color:rgba(255,255,255,.62)}
+.brow .bpc{font-family:'Cormorant Garamond',serif;font-size:18px}
+.prices{display:flex;gap:10px;margin:18px 0 14px}
+.price{flex:1;border:1px solid rgba(255,255,255,.3);border-radius:14px;padding:10px;text-align:center}
+.price.mem{border-color:var(--hana-gold);background:rgba(233,180,76,.16)}
+.price .k{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.72)}
+.price .v{font-family:'Cormorant Garamond',serif;font-size:27px;margin-top:2px}
+.price .s{font-size:10px;color:#ffe0a8}
+.cta{width:100%;border:0;border-radius:999px;padding:14px;font-size:12px;letter-spacing:.14em;
+  text-transform:uppercase;font-weight:600;color:var(--hana-ink);cursor:pointer;margin-bottom:9px;
+  background:linear-gradient(90deg,#ffe39a,#ffc24d);box-shadow:0 10px 30px rgba(233,180,76,.4)}
+.cta.ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.45);box-shadow:none}
+.promise{text-align:center;font-size:10px;color:rgba(255,255,255,.66);margin-top:8px}
+.blend-note{font-size:12px;line-height:1.7;text-align:center;color:rgba(255,255,255,.82);
+  font-family:'Cormorant Garamond',serif;font-style:italic;margin:16px 0 16px;padding:0 6px}
+
+/* ---------- journey rail ---------- */
+.journey{position:fixed;right:30px;bottom:34px;z-index:13;display:flex;gap:18px;pointer-events:none}
+.journey .j{display:flex;align-items:center;gap:7px;opacity:.5;transition:opacity .5s}
+.journey .j.on{opacity:1}
+.journey .jd{width:8px;height:8px;border-radius:50%;background:var(--hana-gold);box-shadow:0 0 12px var(--hana-gold)}
+.journey .jl{font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+
+.restart{position:fixed;bottom:96px;right:34px;z-index:16;pointer-events:auto;
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.42);color:#fff;border-radius:999px;
+  padding:9px 18px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;display:none}
+@media(max-width:1280px){ .journey{display:none} }
+
+/* ---------- soundscape control (premium ritual toggle) ---------- */
+.soundtoggle{position:fixed;bottom:34px;left:28px;z-index:18;pointer-events:auto;display:inline-flex;align-items:center;gap:9px;
+  background:rgba(40,24,66,.34);border:1px solid rgba(255,255,255,.42);color:#fff;
+  border-radius:999px;padding:10px 18px 10px 15px;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;
+  cursor:pointer;backdrop-filter:blur(10px);transition:background .4s,border-color .4s,box-shadow .4s;box-shadow:0 6px 20px rgba(40,20,70,.26)}
+.soundtoggle:hover{background:rgba(40,24,66,.5)}
+.soundtoggle .sdot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.5);flex:none;transition:background .4s}
+.soundtoggle.on{background:linear-gradient(135deg,rgba(233,180,76,.42),rgba(205,150,60,.3));border-color:var(--hana-gold);box-shadow:0 8px 26px rgba(233,180,76,.4)}
+.soundtoggle.on .sdot{background:#ffe39a;animation:sdotPulse 2.4s ease-out infinite}
+@keyframes sdotPulse{0%{box-shadow:0 0 0 0 rgba(255,213,135,.6)}70%{box-shadow:0 0 0 7px rgba(255,213,135,0)}100%{box-shadow:0 0 0 0 rgba(255,213,135,0)}}
+@media(max-width:760px){ .soundtoggle{bottom:auto;top:66px;left:14px;padding:9px 14px} }
+
+/* ---------- footer ---------- */
+.foot{position:relative;z-index:10;text-align:center;padding:40px 20px;color:rgba(255,255,255,.7);font-size:12px}
+.foot a{color:#ffe0a8;text-decoration:none}
+
+/* ---------- responsive ---------- */
+@media(max-width:760px){
+  .nav-links{display:none}
+  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:64px;right:16px;
+    background:rgba(58,33,96,.92);border:1px solid rgba(255,255,255,.4);border-radius:16px;
+    padding:18px 22px;gap:14px;backdrop-filter:blur(12px);align-items:flex-start;z-index:30}
+  .nav-burger{display:block;pointer-events:auto;background:rgba(255,255,255,.16);
+    border:1px solid rgba(255,255,255,.45);color:#fff;border-radius:10px;width:40px;height:36px;
+    font-size:17px;cursor:pointer}
+  .council{display:none}
+  .blend{right:50%;transform:translate(50%,40px);bottom:90px;top:auto;width:min(90vw,360px);
+    max-height:calc(100dvh - 120px);overflow-y:auto}
+  .blend.show{transform:translate(50%,0)}
+  .journey{display:none}
+  .dialogue{top:16%}
+  .panel{padding:30px 22px}
+}

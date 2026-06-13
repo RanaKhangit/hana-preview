@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Society — HANA</title>
+<meta name="description" content="HANA Society is a private, application-only botanical society and bespoke ritual atelier for women who value emotional intelligence, ritual, scent and intentional living.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/hana.css"><link rel="stylesheet" href="css/pages.css"><link rel="stylesheet" href="css/society.css">
+</head>
+<body class="world" data-page="society">
+  <div class="ambient" id="ambient"></div>
+  <div class="world-head">
+    <div class="eyebrow">A PRIVATE BOTANICAL SOCIETY</div>
+    <h1 class="serif">HANA Society</h1>
+    <p class="lead">A private, application-only botanical society and bespoke ritual atelier — for women who value emotional intelligence, self-work, flowers, scent, ritual, beauty and intentional living. HANA creates personalised botanical rituals, flower essences and scent-led preparations to support emotional wellbeing, self-reflection, inner composure and intentional living.</p>
+  </div>
+
+  <div class="society-wrap">
+    <div class="pathway">
+      <span>Apply</span><span class="arr">&rarr;</span><span>Ritual Intake</span><span class="arr">&rarr;</span><span>Society Access</span>
+      <span class="arr">&rarr;</span><span>Private Consultation</span><span class="arr">&rarr;</span><span>Bespoke Preparation</span>
+      <span class="arr">&rarr;</span><span>Atelier &middot; Inner Circle</span>
+    </div>
+    <div class="tiers" id="tiers"></div>
+    <p class="society-note">Membership is by application. The HANA Society is a private society membership, an invitation into a women&rsquo;s botanical world &mdash; salons, ritual, belonging and bespoke preparation &mdash; not an off-the-shelf product or a monthly box. Birth date and personal reflections shared in the Ritual Intake are used as symbolic, reflective ritual profiling, never as diagnosis.</p>
+  </div>
+
+  <script src="js/config/colours.js"></script><script src="js/config/dialogue.js"></script>
+  <script src="js/config/prices.js"></script><script src="js/site.js"></script>
+  <script>
+    var R=function(p){ return (window.HANA_ASSETS&&HANA_ASSETS[p])||p; };
+    SITE.applyColours(); SITE.nav('society'); SITE.footer();
+    var c=HANA.prices.currency, O=HANA.prices.offers;
+    var TIERS=[
+      { o:O.society, cls:'', badge:'Society', access:'Application-only',
+        price:c+O.society.monthly+'/month &middot; '+c+O.society.yearly.toLocaleString()+'/year',
+        items:['Private HANA Society access','Monthly online botanical salon','Seasonal flower ritual guidance',
+               'Members-only flower library','Early access to handmade drops','Priority access to private consultations',
+               'Invitations to private events','Networking with women who value self-work, beauty, ritual and emotional intelligence'],
+        href:'apply.html' },
+      { o:O.consultation, cls:'feature', badge:'The signature offer', access:'By request',
+        price:c+O.consultation.from+'&ndash;'+c+O.consultation.to,
+        items:['Your HANA Ritual Intake','A one-to-one private consultation','An emotional &amp; botanical profile (symbolic, never a diagnosis)',
+               'Personalised flower-essence direction','Personalised scent / oil ritual direction where appropriate',
+               'A bespoke handmade preparation, included','A personalised written ritual note','An optional short follow-up'],
+        href:'apply.html' },
+      { o:O.atelier, cls:'', badge:'Ongoing', access:'After consultation',
+        price:c+O.atelier.monthly+'/month &middot; '+c+O.atelier.yearly.toLocaleString()+'/year',
+        items:['Ongoing personalised botanical ritual support','Regular bespoke handmade preparations','Seasonal review notes',
+               'Priority consultation access','Rare flower &amp; scent drops','Private salons and events',
+               'First access to moon, dawn, forest &amp; sea-inspired limited preparations'],
+        href:'apply.html' },
+      { o:O.innerCircle, cls:'soft', badge:'By invitation', access:'Application-only &middot; limited',
+        price:c+O.innerCircle.from.toLocaleString()+'&ndash;'+c+O.innerCircle.toPlus.toLocaleString()+'+ / year',
+        items:['A private annual botanical journey','Multiple one-to-one consultations','Bespoke preparations throughout the year',
+               'Founder-led access where appropriate','A personal ritual calendar','Priority access to rare ingredients',
+               'Invitation-only salons &amp; retreats','White-glove handling and priority fulfilment'],
+        href:'apply.html' }
+    ];
+    document.getElementById('tiers').innerHTML=TIERS.map(function(t){
+      return '<div class="tier '+t.cls+'"><div class="badge">'+t.badge+'</div>'+
+        '<h3>'+t.o.name+'</h3><div class="price">'+t.price+'</div><div class="access">'+t.access+'</div>'+
+        '<ul>'+t.items.map(function(i){return '<li>'+i+'</li>';}).join('')+'</ul>'+
+        '<a class="t-cta" href="'+t.href+'">'+t.o.cta+'</a></div>';
+    }).join('');
+
+    (function(){ var pets=['rose','rose-red','lavender','lily','bluebell','dandelion']; var amb=document.getElementById('ambient');
+      for(var i=0;i<7;i++){ var im=document.createElement('img'); im.src=R('assets/flowers/petals/hero/'+pets[i%pets.length]+'.png');
+        im.style.left=(8+(i*13)%84)+'vw'; im.style.width=(34+(i%3)*18)+'px';
+        im.style.setProperty('--dx',((i%2?1:-1)*6)+'vw'); im.style.setProperty('--dr',(150+i*30)+'deg');
+        im.style.animationDuration=(19+i*2)+'s'; im.style.animationDelay=(-i*2.7)+'s'; amb.appendChild(im); } })();
+  </script>
+</body>
+</html>

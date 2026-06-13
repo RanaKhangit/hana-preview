@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Flower Lore Library — HANA Journal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/hana.css"><link rel="stylesheet" href="css/pages.css">
+</head>
+<body class="world lore" data-page="journal">
+  <canvas class="snowcanvas" id="snow"></canvas>
+  <div class="lore-hero">
+    <div class="eyebrow">THE FLOWER LORE LIBRARY</div>
+    <h1 class="serif">Stories that fall like petals</h1>
+    <p class="lead">Sit a while beneath the soft fall of flowers. Lore, apothecary notes and seasonal rituals from the world of HANA — to be read slowly.</p>
+  </div>
+  <div class="articles" id="articles"></div>
+
+  <script src="js/config/colours.js"></script><script src="js/config/dialogue.js"></script><script src="js/site.js"></script><script src="js/snow.js"></script>
+  <script>
+    var R=function(p){ return (window.HANA_ASSETS&&HANA_ASSETS[p])||p; };
+    SITE.applyColours(); SITE.nav('journal'); SITE.footer();
+
+    var ART=[
+      { k:'FLOWER LORE', t:'The Lore of the Rose', m:'On warmth, and the feeling of being held',
+        b:['For as long as gardens have been kept, the rose has belonged to the tender rituals of the heart. In the old apothecaries it was folded into oils and waters as a quiet gesture — a way of saying, gently, you are cared for.',
+           'At HANA the rose steps forward in heavy moments, when you want to feel held. It brings warmth, softness, and the quiet sense that the day can be set down for a while.'] },
+      { k:'APOTHECARY', t:'An Apothecary’s Evening', m:'How a ritual closes the day',
+        b:['There is an hour, just before night, when the light turns and the house grows quiet. The old apothecaries marked exactly this hour with lavender and chamomile — not to change anything, but to honour it.',
+           'A few drops, a slow breath, a softening of the shoulders. The ritual is small. That is the point of it.'] },
+      { k:'SEASONAL RITUAL', t:'Rituals for the Turning Seasons', m:'Flowers for spring, summer, autumn, winter',
+        b:['Each season carries its own flowers and its own feeling. Spring belongs to cherry blossom and the beauty of the passing moment; summer to elderflower and bright honeysuckle; autumn to marigold’s remembered warmth; winter to the deep stillness of bluebell and poppy.',
+           'A HANA ritual changes with the year, the way a garden does.'] },
+      { k:'A NOTE FROM ALIYA', t:'On Listening to Flowers', m:'A few words from Aliya, founder of HANA',
+        b:['I have always believed that a flower is a quiet companion. It offers presence and symbolic meaning; it keeps us company. It meets a feeling with its own character and reminds us, softly, of something.',
+           'HANA was made to let flowers do what they have always done — to be present, and beautiful, and ours.'] },
+      { k:'THE CRAFT', t:'How an Essence Comes to Be', m:'From bloom to bottle',
+        b:['A HANA essence begins as a feeling. The flowers whose character meets that feeling are gathered, balanced by season and by the old proportions of the apothecary, and composed into a single small bottle.',
+           'Nothing is mass-produced; every blend is arranged for one person, one moment.'] },
+      { k:'BOTANICAL WISDOM', t:'The Language of Petals', m:'What the old gardeners knew',
+        b:['White for new beginnings, red for feeling fully, gold for brightness, blue for stillness. The old gardeners read flowers the way others read letters, and they built whole rituals from their quiet grammar.',
+           'That language still lives inside every HANA blend — a sentence written in petals, just for you.'] }
+    ];
+    document.getElementById('articles').innerHTML=ART.map(function(a,i){
+      var ps=a.b.map(function(p,j){ return '<p'+(j===0?' class="drop"':'')+'>'+p+'</p>'; }).join('');
+      return '<article class="article"><div class="kicker">'+a.k+'</div><h2>'+a.t+'</h2><div class="meta">'+a.m+'</div>'+ps+'</article>';
+    }).join('');
+
+    SNOW.init('snow', [
+      'assets/flowers/petals/hero/rose.png','assets/flowers/petals/hero/rose-red.png',
+      'assets/flowers/petals/hero/lavender.png','assets/flowers/petals/hero/lily.png',
+      'assets/flowers/petals/hero/bluebell.png','assets/flowers/petals/hero/dandelion.png',
+      'assets/flowers/petals/hero/cherry-blossom.png','assets/flowers/petals/hero/violet.png'
+    ].map(R), 78);
+  </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Living Floral Archive — HANA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/hana.css"><link rel="stylesheet" href="css/pages.css">
+</head>
+<body class="world" data-page="guides">
+  <div class="ambient" id="ambient"></div>
+  <div class="world-head">
+    <div class="eyebrow">THE LIVING FLORAL ARCHIVE</div>
+    <h1 class="serif">A garden of botanical intelligence</h1>
+    <p class="lead"><span id="fcount">26</span> flowers, each a living guide with its own character, energy and centuries of quiet apothecary lore. They speak in feeling and ritual, never in health claims. Wander, and let one find you.</p>
+  </div>
+  <div class="archive-filter" id="filter"></div>
+  <div class="section-wrap"><div class="archive" id="archive"></div></div>
+
+  <script src="js/config/colours.js"></script><script src="js/config/dialogue.js"></script>
+  <script src="js/config/archive.js"></script><script src="js/config/flowers-built.js"></script><script src="js/site.js"></script>
+  <script>
+    var R=function(p){ return (window.HANA_ASSETS&&HANA_ASSETS[p])||p; };
+    SITE.applyColours(); SITE.nav('guides'); SITE.footer();
+
+    /* ambient real petals drifting gently down the page */
+    (function(){
+      var pets=['rose','rose-red','lavender','lily','bluebell','dandelion'];
+      var amb=document.getElementById('ambient'); var n=9;
+      for(var i=0;i<n;i++){
+        var im=document.createElement('img'); im.src=R('assets/flowers/petals/hero/'+pets[i%pets.length]+'.png');
+        var dur=(16+i*2.3), delay=(-i*2.6), left=(6+ (i*10)%88);
+        im.style.left=left+'vw'; im.style.width=(40+ (i%3)*22)+'px';
+        im.style.setProperty('--dx',((i%2?1:-1)*(5+i%4*4))+'vw');
+        im.style.setProperty('--dr',(120+i*30)+'deg');
+        im.style.animationDuration=dur+'s'; im.style.animationDelay=delay+'s';
+        amb.appendChild(im);
+      }
+    })();
+
+    /* the specimen wall */
+    var grid=document.getElementById('archive'), filt=document.getElementById('filter');
+    var BUILT=(window.HANA&&HANA.flowersBuilt)||[];
+    function card(f,idx){
+      var slug=f.id, live=BUILT.indexOf(slug)>=0;
+      var cta = live
+        ? '<a class="explore" href="flowers/'+slug+'.html" aria-label="Explore '+f.name+'">Explore <span class="ar">&#8594;</span></a>'
+        : '<span class="explore soon" aria-disabled="true">In bloom soon</span>';
+      return '<div class="specimen" data-fam="'+f.family+'" style="--glow:'+f.glow+'">'+
+        '<div class="pool" style="--bt:'+(6+(idx%5))+'s;--bd:'+(-(idx%7)*0.7).toFixed(1)+'s">'+
+        '<img src="'+R('assets/flowers/archive/'+(f.img||f.id)+'.png')+'" alt="'+f.name+'"></div>'+
+        '<h3>'+f.name+'</h3><div class="fam">'+f.family+'</div>'+
+        '<p class="power"><span class="plabel">Power of the Flower</span>'+
+        '<span class="ptext serif">'+f.power+'</span></p>'+
+        cta+
+        '<div class="src">'+f.source+'</div></div>';
+    }
+    function render(fam){
+      grid.innerHTML=HANA.archive.filter(function(f){return fam==='All'||f.family===fam;})
+        .map(card).join('');
+    }
+    HANA.archiveFamilies.forEach(function(fm,i){
+      var b=document.createElement('button'); b.textContent=fm; if(i===0)b.className='on';
+      b.onclick=function(){ filt.querySelectorAll('button').forEach(function(x){x.classList.remove('on');}); b.classList.add('on'); render(fm); };
+      filt.appendChild(b);
+    });
+    render('All');
+    document.getElementById('fcount').textContent=(HANA.archive||[]).length;
+  </script>
+</body>
+</html>

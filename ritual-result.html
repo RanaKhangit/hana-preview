@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Potion Reveal — HANA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/hana.css"><link rel="stylesheet" href="css/pages.css">
+</head>
+<body class="world" data-page="result">
+  <div class="reveal">
+    <div class="vessel" id="vessel">
+      <div class="halo"></div>
+      <div class="energy"></div>
+      <img class="bottle" id="bottle" src="" alt="Your HANA ritual">
+      <div class="bottlemark" style="top:49%;font-size:19px">HANA<small>LONDON</small></div>
+    </div>
+    <div class="panel-r">
+      <div class="eyebrow">YOUR RITUAL</div>
+      <h1 class="serif" id="r-name">Evening Light</h1>
+      <div class="sub" id="r-sub">A peaceful close to your day.</div>
+      <div id="r-rows"></div>
+      <p style="font-size:14px;line-height:1.7;color:#5a3f86;margin:14px 0 16px">This is your ritual direction. To have it prepared for you, request a private consultation — your bespoke preparation is created by hand in the HANA Atelier, with a personalised ritual note.</p>
+      <a class="place" style="display:block;text-align:center;text-decoration:none" href="apply.html">Request a Private Consultation</a>
+      <p style="text-align:center;margin-top:12px"><a href="society.html" style="color:#7a5fa6;font-size:12px;text-decoration:none">Apply to HANA Society</a></p>
+    </div>
+  </div>
+
+  <script src="js/config/colours.js"></script><script src="js/config/dialogue.js"></script>
+  <script src="js/config/prices.js"></script><script src="js/config/archive.js"></script><script src="js/site.js"></script>
+  <script>
+    var R=function(p){ return (window.HANA_ASSETS&&HANA_ASSETS[p])||p; };
+    SITE.applyColours(); SITE.nav('result'); SITE.footer();
+    document.getElementById('bottle').src=R('assets/bottles/blend.png');
+
+    function flr(id){ return (HANA.archive||[]).find(function(x){return x.id===id;})||{name:id,glow:'#cdb1f4',lore:''}; }
+    var cap={}; try{ cap=JSON.parse(localStorage.getItem('hana_capture')||'{}'); }catch(e){}
+    var blend=(cap.blend&&cap.blend.length)?cap.blend:[{id:'rose',pct:35},{id:'lavender',pct:30},{id:'bluebell',pct:20},{id:'dandelion',pct:15}];
+    if(cap.ritualName) document.getElementById('r-name').textContent=cap.ritualName;
+    document.getElementById('r-sub').textContent=cap.name?('Composed for '+cap.name+'.'):'A ritual composed for you.';
+    document.getElementById('r-rows').innerHTML=blend.map(function(b){ var f=flr(b.id);
+      return '<div class="brow2"><span class="d" style="color:'+f.glow+';background:'+f.glow+'"></span>'+
+        '<span class="nm"><b>'+f.name+'</b><span>'+(f.lore||'').slice(0,46)+'…</span></span><span class="pc">'+b.pct+'%</span></div>'; }).join('');
+
+    /* the chosen flowers' petals orbiting the new-born bottle */
+    (function(){
+      var v=document.getElementById('vessel');
+      var pmap={rose:'rose',lavender:'lavender',bluebell:'bluebell',dandelion:'dandelion',lily:'lily',chamomile:'lily','red-rose':'rose-red','white-rose':'rose-white'};
+      blend.slice(0,5).forEach(function(b,i){ var src='assets/flowers/petals/hero/'+(pmap[b.id]||'rose')+'.png';
+        var im=document.createElement('img'); im.className='orbit'; im.src=R(src);
+        im.style.animationDelay=(-(i*3.2))+'s'; im.style.animationDuration=(15+i*2)+'s'; v.appendChild(im); });
+    })();
+  </script>
+</body>
+</html>

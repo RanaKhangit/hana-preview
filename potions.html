@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Atelier — Bespoke Preparations &amp; Atelier Drops | HANA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/hana.css"><link rel="stylesheet" href="css/pages.css">
+</head>
+<body class="world" data-page="potions">
+  <div class="ambient" id="ambient"></div>
+  <div class="world-head">
+    <div class="eyebrow">THE HANA ATELIER</div>
+    <h1 class="serif">Bespoke Preparations &amp; Atelier Drops</h1>
+    <p class="lead">Most HANA preparations are created after a private consultation — handmade, small-batch, and prepared for one person in the HANA Atelier. Limited atelier drops may occasionally be released to Society members. Flower essences, scent-led oils and skincare are distinct categories, never treated as interchangeable.</p>
+  </div>
+  <div class="section-wrap"><div class="chamber" id="chamber"></div>
+    <div style="text-align:center;position:relative;z-index:4;margin:18px auto 0;max-width:640px">
+      <a class="enter" style="display:inline-block;text-decoration:none" href="apply.html">Request a Private Consultation</a>
+      <a href="society.html" style="display:block;margin-top:16px;color:#7a5fa6;font-size:12px;letter-spacing:.06em;text-decoration:none">Apply to HANA Society</a>
+    </div>
+  </div>
+
+  <script src="js/config/colours.js"></script><script src="js/config/dialogue.js"></script>
+  <script src="js/config/prices.js"></script><script src="js/site.js"></script>
+  <script>
+    var R=function(p){ return (window.HANA_ASSETS&&HANA_ASSETS[p])||p; };
+    SITE.applyColours(); SITE.nav('potions'); SITE.footer();
+
+    var POTIONS=[
+      { id:'drops', name:'Ritual Drops',  cat:'Flower essence',  desc:'A few drops to open or close your day — a personal flower-essence ritual.' },
+      { id:'oil',   name:'Botanical Oil', cat:'Scent-led oil',   desc:'A silken aromatic oil for a slow, sensory ritual, warmed between the hands.' },
+      { id:'mist',  name:'Aura Mist',     cat:'Sensory mist',    desc:'A fine mist to set the mood of a room, or to carry your ritual with you.' },
+      { id:'blend', name:'Personal Blend',cat:'Bespoke flower essence', desc:'Your chosen flowers, composed into one signature preparation that is yours alone.' },
+      { id:'gift',  name:'Gift Ritual',   cat:'A ritual to give', desc:'A composed ritual, wrapped in gold and given — a small act of devotion.' }
+    ];
+    function alcove(b, hero){
+      var markTop=(b.id==='blend'?'52%':'57%'), markSize=(b.id==='blend'?(hero?'18px':'15px'):'11px');
+      return '<div class="alcove'+(hero?' hero':'')+'"><div class="skyblue"></div>'+
+        '<div class="stage"><div class="aura"></div><div class="energy"></div><div class="smoke smoke2"></div><div class="smoke"></div>'+
+        '<img class="bottle" src="'+R('assets/bottles/'+b.id+'.png')+'" alt="'+b.name+'">'+
+        '<img class="bottle reflect" src="'+R('assets/bottles/'+b.id+'.png')+'" alt="" aria-hidden="true">'+
+        '<div class="bottlemark" style="top:'+markTop+';font-size:'+markSize+'">HANA<small>LONDON</small></div></div>'+
+        '<h3>'+b.name+'</h3><div class="desc">'+b.desc+'</div>'+
+        '<div class="prep-note"><span class="prep-cat">'+b.cat+'</span><span class="prep-by">Created after a private consultation</span></div></div>';
+    }
+    var hero=POTIONS.filter(function(b){return b.id==='blend';})[0];
+    var rest=POTIONS.filter(function(b){return b.id!=='blend';});
+    document.getElementById('chamber').innerHTML=
+      '<div class="chamber-spot"></div>'+
+      '<div class="chamber-hero">'+alcove(hero,true)+'</div>'+
+      '<div class="chamber-row">'+rest.map(function(b){return alcove(b,false);}).join('')+'</div>';
+
+    (function(){
+      var pets=['rose','rose-red','lavender','lily','bluebell','dandelion'];
+      var amb=document.getElementById('ambient');
+      for(var i=0;i<8;i++){ var im=document.createElement('img'); im.src=R('assets/flowers/petals/hero/'+pets[i%pets.length]+'.png');
+        im.style.left=(7+(i*13)%86)+'vw'; im.style.width=(36+(i%3)*20)+'px';
+        im.style.setProperty('--dx',((i%2?1:-1)*(6+i%3*4))+'vw'); im.style.setProperty('--dr',(150+i*26)+'deg');
+        im.style.animationDuration=(18+i*2)+'s'; im.style.animationDelay=(-i*2.7)+'s'; amb.appendChild(im); }
+    })();
+  </script>
+</body>
+</html>

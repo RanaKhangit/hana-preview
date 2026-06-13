@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HANA Ritual Intake — HANA Society</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/hana.css"><link rel="stylesheet" href="css/pages.css">
+</head>
+<body class="world" data-page="create">
+  <div class="ambient" id="ambient"></div>
+  <div class="doorway">
+    <div class="ring" id="ring"><div class="orb"></div></div>
+    <div class="eyebrow">HANA RITUAL INTAKE</div>
+    <h1 class="serif">Your Ritual Intake</h1>
+    <p class="lead">A private, reflective conversation. Share your focus, the feelings and flowers you are drawn to, any sensitivities, and the season of life you are in — and your flowers will gather into a personalised botanical direction, prepared for you. Symbolic and reflective, never a diagnosis.</p>
+    <a class="enter" href="index.html">Begin Your Ritual Intake</a>
+  </div>
+
+  <script src="js/config/colours.js"></script><script src="js/config/dialogue.js"></script><script src="js/site.js"></script>
+  <script>
+    var R=function(p){ return (window.HANA_ASSETS&&HANA_ASSETS[p])||p; };
+    SITE.applyColours(); SITE.nav('create'); SITE.footer();
+
+    /* a ring of flowers waking around the listening clearing */
+    (function(){
+      var ring=document.getElementById('ring');
+      var fl=['rose','lily','lavender','bluebell','chamomile','dandelion'];
+      fl.forEach(function(id,i){ var a=(-90 + i*(360/fl.length))*Math.PI/180, r=42;
+        var im=document.createElement('img'); im.src=R('assets/flowers/archive/'+id+'.png');
+        im.style.left=(50+Math.cos(a)*r)+'%'; im.style.top=(50+Math.sin(a)*r)+'%';
+        im.style.transform='translate(-50%,-50%)'; im.style.animationDelay=(-i*1.1)+'s'; ring.appendChild(im); });
+    })();
+    (function(){
+      var pets=['rose','rose-red','lavender','lily','bluebell','dandelion']; var amb=document.getElementById('ambient');
+      for(var i=0;i<7;i++){ var im=document.createElement('img'); im.src=R('assets/flowers/petals/hero/'+pets[i%pets.length]+'.png');
+        im.style.left=(10+(i*14)%80)+'vw'; im.style.width=(36+(i%3)*18)+'px';
+        im.style.setProperty('--dx',((i%2?1:-1)*7)+'vw'); im.style.setProperty('--dr',(140+i*30)+'deg');
+        im.style.animationDuration=(18+i*2)+'s'; im.style.animationDelay=(-i*2.5)+'s'; amb.appendChild(im); }
+    })();
+  </script>
+</body>
+</html>

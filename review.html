@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HANA — Review the Full Site</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{ --ink:#3a2160; --soft:#5d4488; --gold:#b07b1e; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; min-height:100vh; font-family:'Manrope',system-ui,sans-serif; color:var(--ink);
+    background:linear-gradient(170deg,#efe6fb 0%,#e7dcf6 38%,#e9d9ef 70%,#f3e9d8 100%);
+    -webkit-font-smoothing:antialiased; }
+  .wrap{ max-width:1040px; margin:0 auto; padding:46px 22px 70px; }
+  .brand{ font-family:'Cormorant Garamond',serif; font-size:30px; letter-spacing:.18em; }
+  .brand small{ display:block; font-family:'Manrope',sans-serif; font-size:10px; letter-spacing:.34em;
+    color:var(--soft); margin-top:4px; }
+  h1{ font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(34px,6vw,60px);
+    margin:26px 0 6px; line-height:1.04; }
+  .lead{ font-size:16px; line-height:1.7; color:var(--soft); max-width:60ch; margin:0 0 6px; }
+  .note{ font-size:13px; color:var(--gold); margin:0 0 30px; }
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(248px,1fr)); gap:14px; }
+  a.card{ display:block; text-decoration:none; color:inherit; background:rgba(255,255,255,.62);
+    border:1px solid rgba(120,80,170,.18); border-radius:16px; padding:18px 18px 16px;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease; }
+  a.card:hover{ transform:translateY(-3px); background:rgba(255,255,255,.85);
+    box-shadow:0 14px 34px rgba(70,30,110,.16); }
+  .k{ font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); }
+  a.card h3{ font-family:'Cormorant Garamond',serif; font-weight:500; font-size:23px; margin:6px 0 6px; }
+  a.card p{ font-size:13px; line-height:1.55; color:var(--soft); margin:0; }
+  a.card .go{ display:inline-block; margin-top:12px; font-size:11px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--ink); border-bottom:1px solid rgba(120,80,170,.4); padding-bottom:2px; }
+  .sec{ font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--soft);
+    margin:34px 0 12px; opacity:.8; }
+  .foot{ margin-top:46px; font-size:12px; color:var(--soft); line-height:1.7; }
+  .pill{ display:inline-block; background:rgba(176,123,30,.14); color:#7a5413; border-radius:999px;
+    padding:3px 10px; font-size:11px; letter-spacing:.04em; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand">HANA<small>A PRIVATE BOTANICAL SOCIETY</small></div>
+
+    <h1>Review the full site</h1>
+    <p class="lead">Every page of the HANA Society site in one place. Tap any card to open it. Each page also has its own menu (the &#9776; button, top&#8209;right) to move around from there.</p>
+    <p class="note">Private preview for review &middot; please don&rsquo;t share onward.</p>
+
+    <div class="sec">The core journey</div>
+    <div class="grid">
+      <a class="card" href="index.html">
+        <div class="k">Home</div><h3>The Living Garden</h3>
+        <p>The immersive opening experience. Give it a moment to bloom, then type a name to begin the ritual.</p>
+        <span class="go">Open &#8594;</span></a>
+
+      <a class="card" href="society.html">
+        <div class="k">The Society</div><h3>HANA Society</h3>
+        <p>The application-only membership and the four offers, from Society Membership to the Inner Circle.</p>
+        <span class="go">Open &#8594;</span></a>
+
+      <a class="card" href="apply.html">
+        <div class="k">Apply</div><h3>Begin Your Ritual Intake</h3>
+        <p>How application works: Apply &#8594; Ritual Intake &#8594; Private Consultation &#8594; bespoke preparation.</p>
+        <span class="go">Open &#8594;</span></a>
+
+      <a class="card" href="how-it-works.html">
+        <div class="k">How It Works</div><h3>The Ritual Path</h3>
+        <p>The four-step path. <span class="pill">Petals being updated</span></p>
+        <span class="go">Open &#8594;</span></a>
+    </div>
+
+    <div class="sec">Explore</div>
+    <div class="grid">
+      <a class="card" href="flower-guides.html">
+        <div class="k">Flower Guides</div><h3>The Living Floral Archive</h3>
+        <p>The full archive of flowers, each a living guide with its own character and lore.</p>
+        <span class="go">Open &#8594;</span></a>
+
+      <a class="card" href="flowers/rose.html">
+        <div class="k">Flower detail</div><h3>Rose (sample guide)</h3>
+        <p>An example of a single flower page, with the new &ldquo;Begin Your Ritual Intake&rdquo; call to action.</p>
+        <span class="go">Open &#8594;</span></a>
+
+      <a class="card" href="potions.html">
+        <div class="k">The Atelier</div><h3>Bespoke Preparations</h3>
+        <p>The atelier preparations &mdash; made by hand after a private consultation. No prices, no shop.</p>
+        <span class="go">Open &#8594;</span></a>
+
+      <a class="card" href="about.html">
+        <div class="k">About</div><h3>The HANA Story</h3>
+        <p>The founder&rsquo;s voice and the world behind HANA.</p>
+        <span class="go">Open &#8594;</span></a>
+
+      <a class="card" href="journal.html">
+        <div class="k">Journal</div><h3>Stories &amp; Rituals</h3>
+        <p>Editorial pieces on flower lore, rituals and intentional living.</p>
+        <span class="go">Open &#8594;</span></a>
+    </div>
+
+    <div class="sec">The ritual flow (samples)</div>
+    <div class="grid">
+      <a class="card" href="create-my-blend.html">
+        <div class="k">Ritual Intake</div><h3>Your Ritual Intake</h3>
+        <p>The reflective intake doorway that leads into the garden.</p>
+        <span class="go">Open &#8594;</span></a>
+
+      <a class="card" href="ritual-result.html">
+        <div class="k">Ritual Result</div><h3>Your Ritual Direction</h3>
+        <p>The personalised result, leading to a private consultation rather than a checkout.</p>
+        <span class="go">Open &#8594;</span></a>
+
+      <a class="card" href="checkout.html">
+        <div class="k">Confirmation</div><h3>Request Received</h3>
+        <p>The request confirmation (replaces the old checkout &mdash; no payment, no basket).</p>
+        <span class="go">Open &#8594;</span></a>
+    </div>
+
+    <div class="foot">
+      HANA &middot; a private botanical society &amp; ritual atelier.<br>
+      Prototype for review &mdash; feeling &amp; ritual language only. Nothing here is a health claim.
+    </div>
+  </div>
+</body>
+</html>

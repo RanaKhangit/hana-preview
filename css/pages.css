@@ -1,0 +1,318 @@
+/* ============================================================
+   HANA — page-specific design system (V2).
+   Each secondary page is its own world. Loaded AFTER hana.css.
+   Home is untouched (it does not load this file).
+   Bright lilac pages use body.world; dark-hero pages keep hana.css.
+   Motion is refined: slow, eased, wind-like — never cartoonish.
+   ============================================================ */
+
+/* ---------- bright lilac world base + readable light-page chrome ---------- */
+body.world{ background:
+   radial-gradient(120% 90% at 50% -10%, #fff8ef 0%, transparent 45%),
+   linear-gradient(180deg,#f7f0ff 0%,#efe2ff 46%,#e3cdfa 100%);
+   color:var(--hana-ink); min-height:100vh; overflow-x:hidden }
+body.world .nav a,body.world .brand{ color:#43286f; text-shadow:none }
+body.world .brand small{ color:#7a5fa6 }
+body.world .nav-links a:hover,body.world .nav-links a.active{ color:#b07b1e }
+body.world .nav-cta{ background:#43286f; color:#fff }
+body.world .nav-burger{ background:rgba(67,40,111,.1); border-color:rgba(67,40,111,.35); color:#43286f }
+body.world .foot{ color:#6b4f93 }
+body.world .foot a{ color:#b07b1e }
+
+.world-head{ position:relative; z-index:4; text-align:center; padding:118px 24px 8px; max-width:1080px; margin:0 auto }
+.world-head .eyebrow{ color:#b07b1e }
+.world-head h1{ font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(38px,6vw,76px);
+   color:#3a2160; margin:6px 0 8px; line-height:1.02; text-shadow:0 1px 20px rgba(255,255,255,.6), 0 1px 3px rgba(255,255,255,.55) }
+.world-head .lead{ font-size:17px; line-height:1.75; color:#5d4488; max-width:62ch; margin:0 auto;
+   text-shadow:0 1px 12px rgba(255,255,255,.7), 0 0 2px rgba(255,255,255,.6) }
+@media(max-width:760px){ .world-head{ padding-top:104px } .world-head .lead{ font-size:15.5px } }
+.section-wrap{ position:relative; z-index:4; max-width:1180px; margin:0 auto; padding:0 24px 70px }
+
+/* soft ambient petals drifting on light pages (CSS, real cut-outs via <img>) */
+.ambient{ position:fixed; inset:0; z-index:1; pointer-events:none; overflow:hidden }
+.ambient img{ position:absolute; width:64px; opacity:.0; filter:drop-shadow(0 10px 18px rgba(80,40,130,.18));
+   animation:drift linear infinite }
+@keyframes drift{
+   0%{ transform:translate3d(0,-12vh,0) rotate(0deg); opacity:0 }
+   12%{ opacity:.85 }
+   88%{ opacity:.85 }
+   100%{ transform:translate3d(var(--dx,8vw),112vh,0) rotate(var(--dr,180deg)); opacity:0 } }
+
+/* =====================================================================
+   HOW IT WORKS — "The Blooming Ritual Path": 4 floating real rose petals
+   ===================================================================== */
+/* How It Works: fade the big central page-background petal so the four engraved
+   petal-tablets read clean (the world gradient + drifting ambient petals carry it) */
+body[data-page="how"] .pagebg{ opacity:.12 }
+/* four separated petal-tablets (no central overlap), each carrying its inscription */
+.ritualpath{ position:relative; z-index:4; display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
+   gap:30px 74px; max-width:1080px; margin:10px auto 0; padding:20px 24px 90px; justify-items:center }
+.steppetal{ position:relative; width:100%; max-width:430px; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center;
+   text-align:center }
+.steppetal .pet{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain;
+   filter:var(--pf,) drop-shadow(0 30px 52px rgba(80,40,130,.30)); transform-origin:50% 60%;
+   animation:floatpetal var(--t,12s) ease-in-out infinite }
+.steppetal:nth-child(1) .pet{ --t:11s; animation-delay:0s }
+.steppetal:nth-child(2) .pet{ --t:12.5s; animation-delay:-2.4s }
+.steppetal:nth-child(3) .pet{ --t:10.5s; animation-delay:-4.1s }
+.steppetal:nth-child(4) .pet{ --t:13s; animation-delay:-6.2s }
+@keyframes floatpetal{
+   0%{ transform:translateY(0) rotate(-3deg) scale(1) }
+   25%{ transform:translateY(-12px) rotate(1.5deg) scale(1.012) }
+   50%{ transform:translateY(-4px) rotate(3deg) scale(1.004) }
+   75%{ transform:translateY(-14px) rotate(0deg) scale(1.01) }
+   100%{ transform:translateY(0) rotate(-3deg) scale(1) } }
+/* step text written directly ON the petal (the petal IS the container) */
+/* ENGRAVED copy — solid, legible, CARVED into the petal (letterpress: strong dark
+   ink + a bright lower-edge highlight so the cut catches light). No blend mode. */
+/* the inscription sits centred INSIDE the petal, carved by a real specular-lighting
+   emboss (lit groove + dark recess) — not a flat shadow. Fill = darkened petal tone. */
+.steppetal .copy{ position:relative; z-index:2; width:50%; max-width:205px; padding:4px 2px;
+   transform:rotate(var(--lean, 0deg)); filter:url(#engrave) }
+.steppetal .num{ font-family:'Cormorant Garamond',serif; font-weight:600; font-size:clamp(48px,5.4vw,68px); color:var(--ink,#2a0c20);
+   line-height:1; margin-bottom:0 }
+.steppetal h3{ font-family:'Cormorant Garamond',serif; font-weight:700; font-size:clamp(29px,3.4vw,42px);
+   color:var(--ink,#2a0c20); margin:0 0 10px; letter-spacing:.015em }
+.steppetal p{ font-size:clamp(15px,1.55vw,18px); line-height:1.54; font-weight:700; color:var(--ink,#2a0c20) }
+@media(max-width:760px){ .ritualpath{ grid-template-columns:1fr; gap:0 } .steppetal{ max-width:90vw } .steppetal .copy{ width:54%; max-width:240px } }
+
+/* =====================================================================
+   FLOWER GUIDES — "The Living Floral Archive": breathing specimen wall
+   ===================================================================== */
+.archive{ position:relative; z-index:4; display:grid; gap:22px;
+   grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); margin-top:20px }
+.specimen{ position:relative; border-radius:22px; padding:14px 16px 22px; text-align:center;
+   background:linear-gradient(180deg, rgba(255,253,255,.74), rgba(250,246,255,.58));
+   -webkit-backdrop-filter:blur(9px); backdrop-filter:blur(9px);
+   border:1px solid rgba(255,255,255,.7); box-shadow:0 16px 40px rgba(80,40,130,.14);
+   transition:transform .55s cubic-bezier(.2,.7,.2,1),box-shadow .55s,background .55s }
+.specimen:hover{ transform:translateY(-8px); background:linear-gradient(180deg, rgba(255,255,255,.88), rgba(250,246,255,.74));
+   box-shadow:0 30px 64px rgba(80,40,130,.24) }
+/* soft pool of light behind the TRANSPARENT flower cut-out — no white box */
+.specimen .pool{ position:relative; height:184px; display:flex; align-items:center; justify-content:center; margin-bottom:6px;
+   background:radial-gradient(54% 54% at 50% 50%, color-mix(in srgb,var(--glow,#cdb1f4) 30%, transparent), transparent 70%) }
+.specimen .pool img{ max-height:176px; max-width:94%; object-fit:contain;
+   filter:drop-shadow(0 14px 24px rgba(50,20,90,.26));
+   transform-origin:50% 78%; animation:sway var(--bt,7s) ease-in-out infinite; animation-delay:var(--bd,0s) }
+.specimen:hover .pool img{ animation-duration:calc(var(--bt,7s) * .7) }
+/* gentle, natural breeze — small sway + breath, no wobble, no rotation gimmick */
+@keyframes sway{ 0%{ transform:translateY(0) rotate(-0.8deg) scale(1) }
+   50%{ transform:translateY(-5px) rotate(0.8deg) scale(1.012) }
+   100%{ transform:translateY(0) rotate(-0.8deg) scale(1) } }
+.specimen h3{ font-family:'Cormorant Garamond',serif; font-weight:500; font-size:23px; color:#3a2160 }
+.specimen .fam{ font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:#b07b1e; margin:2px 0 8px }
+.specimen .voice{ font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14.5px; line-height:1.5; color:#6a4d96; margin-bottom:8px }
+.specimen p{ font-size:12.5px; line-height:1.55; color:#5a3f86 }
+/* Power of the Flower teaser — the captivating line, kept short + readable */
+.specimen .power{ margin:2px 4px 14px; min-height:74px; display:flex; flex-direction:column; gap:5px }
+.specimen .power .plabel{ font-family:'Manrope',sans-serif; font-size:8.5px; letter-spacing:.2em; text-transform:uppercase; color:#a06f15 }
+.specimen .power .ptext{ font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15.5px; line-height:1.45; color:#43286f }
+/* Explore button — elegant gold-outline pill that fills on hover, never generic */
+.specimen .explore{ display:inline-flex; align-items:center; gap:8px; text-decoration:none; cursor:pointer;
+   font-family:'Manrope',sans-serif; font-size:11px; letter-spacing:.16em; text-transform:uppercase; font-weight:600;
+   color:#43286f; background:transparent; border:1px solid rgba(176,123,30,.55); border-radius:999px; padding:9px 20px;
+   transition:background .35s, color .35s, border-color .35s, transform .35s, box-shadow .35s }
+.specimen .explore .ar{ transition:transform .35s }
+.specimen .explore:hover{ background:linear-gradient(135deg,#ffe39a,#ffc24d); color:#4a3110; border-color:transparent;
+   transform:translateY(-2px); box-shadow:0 10px 24px rgba(233,180,76,.4) }
+.specimen .explore:hover .ar{ transform:translateX(4px) }
+.specimen .explore.soon{ color:#9a7fc0; border-color:rgba(120,90,170,.3); cursor:default; letter-spacing:.1em }
+.specimen .explore.soon:hover{ background:transparent; color:#9a7fc0; border-color:rgba(120,90,170,.3); transform:none; box-shadow:none }
+.specimen .src{ display:inline-block; margin-top:12px; font-size:9px; letter-spacing:.12em; text-transform:uppercase;
+   color:#9a7fc0; border:1px solid rgba(120,90,170,.3); border-radius:999px; padding:3px 10px }
+.archive-filter{ display:flex; flex-wrap:wrap; gap:9px; justify-content:center; margin:14px auto 4px; position:relative; z-index:4 }
+.archive-filter button{ border:1px solid rgba(67,40,111,.25); background:rgba(255,255,255,.5); color:#43286f;
+   border-radius:999px; padding:8px 16px; font-size:12px; letter-spacing:.04em; cursor:pointer; transition:all .25s }
+.archive-filter button:hover,.archive-filter button.on{ background:#43286f; color:#fff; border-color:#43286f }
+
+/* =====================================================================
+   POTIONS — "The Alchemy Bottle Chamber": bottle-led, aura + smoke
+   ===================================================================== */
+/* THE ALCHEMY CHAMBER — a composed niche, not a grid: a hero bottle under a
+   spotlight, supporting bottles in a depth row, floor reflections + layered smoke. */
+.chamber{ position:relative; z-index:4; margin-top:18px; padding-top:18px }
+.chamber-spot{ position:absolute; top:-46px; left:50%; transform:translateX(-50%); width:min(86vw,820px); height:560px; pointer-events:none; z-index:0;
+   background:radial-gradient(46% 58% at 50% 0%, rgba(255,236,200,.42), rgba(150,120,210,.16) 44%, transparent 72%); filter:blur(10px); animation:breatheBlue 11s ease-in-out infinite }
+.chamber-hero{ display:flex; justify-content:center; position:relative; z-index:3; margin-bottom:6px }
+.chamber-row{ display:flex; flex-wrap:wrap; gap:26px; justify-content:center; align-items:flex-start; position:relative; z-index:2 }
+.chamber-row .alcove{ width:228px }
+.alcove.hero{ width:min(94vw,430px) }
+.alcove.hero .stage{ height:430px }
+.alcove.hero .bottle{ max-height:388px }
+.alcove.hero h3{ font-size:32px }
+/* glass floor reflection beneath each bottle */
+.alcove .reflect{ position:absolute; left:50%; bottom:-4px; transform:translateX(-50%) scaleY(-1); max-height:130px; max-width:60%;
+   opacity:.2; filter:blur(1.2px); z-index:1; pointer-events:none; animation:none;
+   -webkit-mask:linear-gradient(to bottom, #000 0%, transparent 62%); mask:linear-gradient(to bottom, #000 0%, transparent 62%) }
+.alcove.hero .reflect{ max-height:170px }
+/* a second, slower smoke layer for depth */
+.alcove .smoke.smoke2{ width:128px; height:300px; bottom:0;
+   background:radial-gradient(50% 70% at 50% 100%, rgba(192,170,255,.42), transparent 74%); filter:blur(13px); animation-duration:9.5s; animation-delay:-3.2s }
+@media(max-width:760px){ .chamber-row .alcove{ width:min(82vw,300px) } }
+.alcove{ position:relative; text-align:center; padding:18px 14px 26px; border-radius:24px;
+   background:linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,.16));
+   border:1px solid rgba(255,255,255,.65); overflow:hidden; transition:transform .5s }
+.alcove:hover{ transform:translateY(-6px) }
+/* the bottle sits in a deep chamber niche, so the aura/smoke/energy glow against darkness */
+.alcove .stage{ position:relative; height:330px; display:flex; align-items:flex-end; justify-content:center; border-radius:20px;
+   background:radial-gradient(72% 62% at 50% 52%, rgba(44,26,72,.5), rgba(44,26,72,.16) 60%, transparent 78%) }
+/* mystic aura ring */
+.alcove .aura{ position:absolute; left:50%; top:46%; width:250px; height:250px; transform:translate(-50%,-50%);
+   border-radius:50%; pointer-events:none;
+   background:radial-gradient(circle, rgba(255,219,150,.6) 0%, rgba(205,177,244,.42) 42%, transparent 70%);
+   filter:blur(4px); animation:auraPulse 6s ease-in-out infinite }
+@keyframes auraPulse{ 0%{ transform:translate(-50%,-50%) scale(.92); opacity:.7 }
+   50%{ transform:translate(-50%,-50%) scale(1.06); opacity:1 } 100%{ transform:translate(-50%,-50%) scale(.92); opacity:.7 } }
+/* soft blue mystic smoke rising from the base */
+.alcove .smoke{ position:absolute; left:50%; bottom:6px; width:178px; height:248px; transform:translateX(-50%);
+   pointer-events:none; background:radial-gradient(52% 62% at 50% 100%, rgba(158,196,255,.66), rgba(190,170,255,.28) 48%, transparent 74%);
+   filter:blur(9px); animation:smokeRise 7s ease-in-out infinite }
+@keyframes smokeRise{ 0%{ opacity:.3; transform:translateX(-50%) translateY(8px) scale(.9) }
+   50%{ opacity:.8; transform:translateX(-50%) translateY(-10px) scale(1.05) }
+   100%{ opacity:.3; transform:translateX(-50%) translateY(8px) scale(.9) } }
+/* swirling golden alchemy energy — a soft light-trail ring rotating around the bottle */
+.alcove .energy,.vessel .energy{ position:absolute; left:50%; top:46%; width:270px; height:270px; transform:translate(-50%,-50%);
+   pointer-events:none; border-radius:50%; filter:blur(1.2px);
+   background:conic-gradient(from 0deg, transparent 0deg, rgba(255,213,135,.0) 24deg, rgba(255,217,140,.6) 64deg, transparent 104deg,
+     transparent 188deg, rgba(255,226,160,.5) 232deg, transparent 286deg, transparent 360deg);
+   -webkit-mask:radial-gradient(circle, transparent 39%, #000 45%, #000 53%, transparent 61%);
+   mask:radial-gradient(circle, transparent 39%, #000 45%, #000 53%, transparent 61%);
+   animation:spinEnergy 15s linear infinite }
+.vessel .energy{ width:360px; height:360px }
+@keyframes spinEnergy{ to{ transform:translate(-50%,-50%) rotate(360deg) } }
+/* breathing blue alchemical atmosphere behind the bottle */
+.alcove .skyblue{ position:absolute; inset:0; pointer-events:none; border-radius:24px; overflow:hidden; z-index:0;
+   background:radial-gradient(60% 50% at 50% 80%, rgba(150,192,255,.48), transparent 72%);
+   animation:breatheBlue 9.5s ease-in-out infinite }
+@keyframes breatheBlue{ 0%{ opacity:.45; transform:scale(1) } 50%{ opacity:.85; transform:scale(1.07) } 100%{ opacity:.45; transform:scale(1) } }
+
+/* HANA wordmark integrated onto the bottle face (consistent across pages) */
+.bottlemark{ position:absolute; z-index:3; left:50%; transform:translateX(-50%); pointer-events:none;
+   font-family:'Cormorant Garamond',serif; font-weight:500; letter-spacing:.46em; color:rgba(74,49,16,.72);
+   text-shadow:0 1px 1px rgba(255,255,255,.55); }
+.bottlemark small{ display:block; letter-spacing:.30em; font-family:'Manrope',sans-serif; font-weight:500;
+   font-size:.3em; color:rgba(74,49,16,.6); margin-top:.4em; text-align:center }
+.alcove .bottle{ position:relative; z-index:2; max-height:300px; max-width:90%; object-fit:contain;
+   filter:drop-shadow(0 22px 40px rgba(60,30,110,.34)); animation:bottleFloat 9s ease-in-out infinite }
+@keyframes bottleFloat{ 0%{ transform:translateY(0) } 50%{ transform:translateY(-10px) } 100%{ transform:translateY(0) } }
+.alcove h3{ font-family:'Cormorant Garamond',serif; font-weight:500; font-size:26px; color:#3a2160; margin:10px 0 2px }
+.alcove .desc{ font-size:13.5px; line-height:1.6; color:#5a3f86; max-width:30ch; margin:0 auto 12px }
+.alcove .row{ display:flex; align-items:center; justify-content:center; gap:14px }
+.alcove .price{ font-family:'Cormorant Garamond',serif; font-size:26px; color:#3a2160 }
+/* atelier: category + "by consultation" note (no price, no buy) */
+.alcove .prep-note{ display:flex; flex-direction:column; gap:3px; align-items:center; margin-top:4px }
+.alcove .prep-note .prep-cat{ font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:#b07b1e }
+.alcove .prep-note .prep-by{ font-size:12px; font-style:italic; font-family:'Cormorant Garamond',serif; color:#7a5fa6 }
+.alcove .pick{ border:0; border-radius:999px; padding:14px 28px; font-size:12px; letter-spacing:.15em; text-transform:uppercase;
+   font-weight:600; color:#4a3110; cursor:pointer; background:linear-gradient(135deg,#ffe39a,#ffc24d);
+   box-shadow:0 12px 30px rgba(233,180,76,.5); transition:transform .3s, box-shadow .3s; text-decoration:none }
+.alcove .pick:hover{ transform:translateY(-2px); box-shadow:0 18px 38px rgba(233,180,76,.6) }
+
+/* =====================================================================
+   JOURNAL — "The Flower Lore Library": floral snow + editorial
+   ===================================================================== */
+body.lore{ background:linear-gradient(180deg,#fdf7ff 0%,#f3e8ff 40%,#e7d6fb 100%) }
+.snowcanvas{ position:fixed; inset:0; z-index:1; pointer-events:none }
+.lore-hero{ position:relative; z-index:4; text-align:center; padding:128px 24px 26px; max-width:900px; margin:0 auto }
+.lore-hero h1{ font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(40px,6.4vw,80px); color:#3a2160; line-height:1.02 }
+.lore-hero .lead{ font-size:17px; line-height:1.8; color:#5d4488; max-width:56ch; margin:8px auto 0 }
+.articles{ position:relative; z-index:4; max-width:920px; margin:10px auto 80px; padding:0 24px;
+   display:flex; flex-direction:column; gap:34px }
+.article{ background:rgba(255,255,255,.74); border:1px solid rgba(255,255,255,.9); border-radius:22px;
+   padding:34px 38px; box-shadow:0 18px 50px rgba(80,40,130,.12); backdrop-filter:blur(4px) }
+.article .kicker{ font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:#b07b1e }
+.article h2{ font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(26px,3.4vw,38px); color:#3a2160; margin:6px 0 4px }
+.article .meta{ font-style:italic; font-family:'Cormorant Garamond',serif; color:#7a5fa6; margin-bottom:12px }
+.article p{ font-size:15.5px; line-height:1.85; color:#4f3a72; margin-bottom:12px }
+.article .drop::first-letter{ font-family:'Cormorant Garamond',serif; font-size:56px; line-height:.8; float:left;
+   padding:6px 10px 0 0; color:#b07b1e }
+
+/* =====================================================================
+   CREATE MY BLEND — "The Conversation Garden": ritual doorway
+   ===================================================================== */
+.doorway{ position:relative; z-index:4; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+   text-align:center; padding:120px 24px 80px }
+.doorway .ring{ position:relative; width:min(74vw,460px); aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; margin-bottom:6px }
+.doorway .ring .orb{ position:absolute; inset:14% 14%; border-radius:50%;
+   background:radial-gradient(circle, rgba(255,236,196,.55), rgba(205,177,244,.34) 52%, transparent 72%);
+   filter:blur(2px); animation:auraPulse 7s ease-in-out infinite }
+.doorway .ring img{ position:absolute; width:88px; object-fit:contain; filter:drop-shadow(0 12px 22px rgba(50,20,90,.28));
+   animation:breathe 8s ease-in-out infinite }
+.doorway h1{ font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(40px,6.4vw,78px); color:#3a2160; line-height:1.02; margin-top:8px }
+.doorway .lead{ font-size:17px; line-height:1.8; color:#5d4488; max-width:54ch; margin:10px auto 22px }
+.doorway .enter{ display:inline-block; text-decoration:none; border-radius:999px; padding:16px 34px; font-size:13px;
+   letter-spacing:.16em; text-transform:uppercase; font-weight:600; color:#4a3110;
+   background:linear-gradient(135deg,#ffe39a,#ffc24d); box-shadow:0 12px 30px rgba(233,180,76,.45) }
+
+/* =====================================================================
+   RITUAL RESULT — "The Potion Reveal"
+   ===================================================================== */
+.reveal{ position:relative; z-index:4; min-height:100vh; display:grid; grid-template-columns:1.05fr .95fr; gap:30px; align-items:center;
+   max-width:1120px; margin:0 auto; padding:118px 24px 70px }
+.reveal .vessel{ position:relative; display:flex; align-items:center; justify-content:center; min-height:440px }
+.reveal .vessel .halo{ position:absolute; width:380px; height:380px; border-radius:50%;
+   background:radial-gradient(circle, rgba(255,224,168,.5), rgba(205,177,244,.32) 46%, transparent 70%); filter:blur(3px);
+   animation:auraPulse 6.5s ease-in-out infinite }
+.reveal .vessel img.bottle{ position:relative; z-index:2; max-height:420px; max-width:90%; object-fit:contain;
+   filter:drop-shadow(0 26px 50px rgba(60,30,110,.36)); animation:bottleFloat 8s ease-in-out infinite }
+.reveal .vessel .orbit{ position:absolute; width:70px; object-fit:contain; z-index:1; opacity:.92;
+   filter:drop-shadow(0 8px 14px rgba(50,20,90,.3)); animation:orbit 16s linear infinite }
+@keyframes orbit{ from{ transform:rotate(0) translateX(190px) rotate(0) } to{ transform:rotate(360deg) translateX(190px) rotate(-360deg) } }
+.reveal .panel-r{ background:rgba(255,255,255,.66); border:1px solid rgba(255,255,255,.9); border-radius:24px; padding:30px 32px;
+   box-shadow:0 20px 56px rgba(80,40,130,.16) }
+.reveal .panel-r .eyebrow{ color:#b07b1e; text-align:left }
+.reveal .panel-r h1{ font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(32px,4.6vw,52px); color:#3a2160; margin:2px 0 4px }
+.reveal .panel-r .sub{ font-style:italic; font-family:'Cormorant Garamond',serif; color:#7a5fa6; margin-bottom:16px }
+.reveal .brow2{ display:flex; align-items:center; gap:11px; margin:9px 0 }
+.reveal .brow2 .d{ width:12px; height:12px; border-radius:50%; box-shadow:0 0 10px currentColor; flex:none }
+.reveal .brow2 .nm{ flex:1; font-size:13.5px; color:#3a2160 } .reveal .brow2 .nm span{ display:block; font-size:11px; color:#7a5fa6 }
+.reveal .brow2 .pc{ font-family:'Cormorant Garamond',serif; font-size:19px; color:#3a2160 }
+/* primary conversion CTA — prominent gold pill (matches the site CTA system) */
+.reveal .panel-r .place{ display:block; text-align:center; text-decoration:none; width:100%; border:0; border-radius:999px;
+   padding:16px; font-size:12px; letter-spacing:.15em; text-transform:uppercase; font-weight:600; color:#4a3110;
+   background:linear-gradient(135deg,#ffe39a,#ffc24d); box-shadow:0 12px 30px rgba(233,180,76,.5); transition:transform .3s,box-shadow .3s }
+.reveal .panel-r .place:hover{ transform:translateY(-2px); box-shadow:0 18px 38px rgba(233,180,76,.6) }
+@media(max-width:860px){ .reveal{ grid-template-columns:1fr } .reveal .vessel{ min-height:320px } }
+
+/* =====================================================================
+   ABOUT — "The Founder's Apothecary"
+   ===================================================================== */
+.apoth{ position:relative; z-index:4; max-width:1080px; margin:0 auto; padding:120px 24px 80px;
+   display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center }
+.apoth .glass{ border-radius:24px; overflow:hidden; box-shadow:0 26px 60px rgba(80,40,130,.26);
+   aspect-ratio:4/5; background:#e9d8ff }
+.apoth .glass img{ width:100%; height:100%; object-fit:cover; display:block }
+.apoth .story .eyebrow{ color:#b07b1e; text-align:left }
+.apoth .story h1{ font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(34px,5vw,60px); color:#3a2160; margin:4px 0 14px; line-height:1.04 }
+.apoth .story p{ font-size:16px; line-height:1.9; color:#4f3a72; margin-bottom:14px }
+.apoth .story .sign{ font-family:'Cormorant Garamond',serif; font-style:italic; font-size:22px; color:#7a5fa6; margin-top:8px }
+@media(max-width:860px){ .apoth{ grid-template-columns:1fr } }
+
+/* =====================================================================
+   CHECKOUT — "The Ritual Confirmation"
+   ===================================================================== */
+.confirm{ position:relative; z-index:4; max-width:980px; margin:0 auto; padding:120px 24px 80px;
+   display:grid; grid-template-columns:.9fr 1.1fr; gap:34px; align-items:center }
+.confirm .bottlecol{ position:relative; text-align:center; min-height:360px; display:flex; align-items:center; justify-content:center }
+.confirm .bottlecol .halo{ position:absolute; width:300px; height:300px; border-radius:50%;
+   background:radial-gradient(circle, rgba(255,224,168,.42), transparent 68%); filter:blur(3px); animation:auraPulse 7s ease-in-out infinite }
+.confirm .bottlecol img{ position:relative; z-index:2; max-height:360px; max-width:88%; object-fit:contain;
+   filter:drop-shadow(0 22px 44px rgba(60,30,110,.3)) }
+.confirm .pay{ background:rgba(255,255,255,.8); border:1px solid rgba(255,255,255,.95); border-radius:24px; padding:30px 32px;
+   box-shadow:0 18px 50px rgba(80,40,130,.14) }
+.confirm .pay .eyebrow{ color:#b07b1e; text-align:left }
+.confirm .pay h1{ font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(30px,4.2vw,46px); color:#3a2160; margin:2px 0 2px }
+.confirm .pay .sub{ color:#6a4d96; margin-bottom:16px; font-size:14px }
+.confirm .line{ display:flex; align-items:center; gap:11px; padding:9px 0; border-bottom:1px solid rgba(67,40,111,.1) }
+.confirm .line .d{ width:11px;height:11px;border-radius:50%;box-shadow:0 0 8px currentColor;flex:none }
+.confirm .line .nm{ flex:1; font-size:14px; color:#3a2160 } .confirm .line .nm span{ display:block; font-size:12.5px; color:#6a4d96 }
+.confirm .line .pc{ font-family:'Cormorant Garamond',serif; font-size:18px; color:#3a2160 }
+.confirm .totals{ display:flex; gap:12px; margin:16px 0 14px }
+.confirm .tcard{ flex:1; border:1px solid rgba(67,40,111,.2); border-radius:14px; padding:12px; text-align:center }
+.confirm .tcard.mem{ border-color:#e4a23a; background:rgba(228,162,58,.12) }
+.confirm .tcard .k{ font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:#7a5fa6 }
+.confirm .tcard .v{ font-family:'Cormorant Garamond',serif; font-size:26px; color:#3a2160 }
+.confirm .place{ width:100%; border:0; border-radius:999px; padding:15px; font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+   font-weight:600; color:#4a3110; cursor:pointer; background:linear-gradient(135deg,#ffe39a,#ffc24d); box-shadow:0 12px 30px rgba(233,180,76,.4) }
+.confirm .trust{ display:flex; gap:16px; justify-content:center; margin-top:12px; font-size:12.5px; color:#6a4d96 }
+@media(max-width:860px){ .confirm{ grid-template-columns:1fr } }

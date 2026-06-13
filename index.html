@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HANA — Living Botanical Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/hana.css">
+</head>
+<body data-page="home">
+  <!-- Cinematic real-petal hero video (the murmuration). Poster = the keyframe
+       still, so there is never a blank frame while the video loads. -->
+  <video class="herovideo" id="herovid" autoplay muted loop playsinline preload="auto"></video>
+  <div class="grade"></div>
+  <canvas id="garden"></canvas>
+  <div class="scrim"></div>
+
+  <script src="js/config/colours.js"></script>
+  <script src="js/config/animation.js"></script>
+  <script src="js/config/flowers.js"></script>
+  <script src="js/config/dialogue.js"></script>
+  <script src="js/config/prices.js"></script>
+  <script src="js/config/questions.js"></script>
+  <script src="js/config/products.js"></script>
+  <script src="js/garden.js"></script>
+  <script src="js/experience.js"></script>
+  <script src="js/config/sound.js"></script><script src="js/config/soundscapes.js"></script><script src="js/sound.js"></script><script src="js/site.js"></script>
+  <script>
+    (function(){
+      var R=function(p){ return (window.HANA_ASSETS&&HANA_ASSETS[p])||p; };
+      var hv=document.getElementById('herovid');
+      var poster=R('assets/hero/home-poster.png');
+      // Show the cinematic still immediately (covers the box before the film can play).
+      hv.style.backgroundImage='url("'+poster+'")';
+      hv.poster=poster;
+      hv.src=R('assets/hero/home.mp4');
+      hv.classList.add('ready');
+      hv.addEventListener('canplay',function(){ hv.play().catch(function(){}); });
+    })();
+    SITE.applyColours();
+    SITE.nav('home');
+    GARDEN.init('garden','hero');
+    EXPERIENCE.start();
+  </script>
+</body>
+</html>

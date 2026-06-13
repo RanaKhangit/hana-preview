@@ -1,0 +1,119 @@
+/* ============================================================
+   HANA — Flower Detail page ("/flowers/<slug>.html")
+   A premium editorial world for a single flower. Loaded AFTER
+   hana.css + pages.css. Lives one folder deep, so assets are ../.
+   Restraint over decoration: one breathing specimen, generous
+   air, slow motion. Designed to scale identically to every flower.
+   ============================================================ */
+
+.flowerpage{ --fp-ink:#3a2160; --fp-soft:#5d4488; --fp-gold:#b07b1e }
+
+/* ---------- self-contained slim nav (subfolder-safe links) ---------- */
+.fp-nav{ position:fixed; top:0; left:0; right:0; z-index:20; display:flex; align-items:center; justify-content:space-between;
+   padding:18px 30px; backdrop-filter:blur(9px); background:linear-gradient(180deg, rgba(247,240,255,.82), rgba(247,240,255,0)) }
+.fp-nav .brand{ font-family:'Cormorant Garamond',serif; font-size:25px; letter-spacing:.30em; color:#43286f; text-decoration:none }
+.fp-nav .brand small{ display:block; font-family:'Manrope',sans-serif; font-size:9px; letter-spacing:.34em; color:#7a5fa6; margin-top:2px }
+.fp-nav .links{ display:flex; align-items:center; gap:22px }
+.fp-nav .links a{ font-size:12.5px; letter-spacing:.05em; color:#43286f; text-decoration:none; opacity:.85; transition:opacity .25s,color .25s }
+.fp-nav .links a:hover{ opacity:1; color:var(--fp-gold) }
+.fp-nav .cta{ background:#43286f; color:#fff !important; border-radius:999px; padding:9px 18px; opacity:1 }
+@media(max-width:720px){ .fp-nav .links a.hideMobile{ display:none } .fp-nav{ padding:14px 18px } }
+
+/* ---------- hero: a single breathing specimen beside the title ---------- */
+.fp-hero{ position:relative; z-index:4; max-width:1140px; margin:0 auto; padding:132px 26px 26px;
+   display:grid; grid-template-columns:.92fr 1.08fr; gap:46px; align-items:center }
+.fp-crumb{ font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--fp-soft); margin-bottom:14px }
+.fp-crumb a{ color:var(--fp-soft); text-decoration:none } .fp-crumb a:hover{ color:var(--fp-gold) }
+.fp-crumb span{ color:var(--fp-gold) }
+
+.fp-stage{ position:relative; min-height:430px; display:flex; align-items:center; justify-content:center }
+.fp-stage .pool{ position:absolute; width:min(76%,420px); aspect-ratio:1/1; border-radius:50%;
+   background:radial-gradient(circle, color-mix(in srgb,var(--fp-glow,#cdb1f4) 42%, transparent), transparent 68%);
+   filter:blur(3px); animation:fpAura 7.5s ease-in-out infinite }
+@keyframes fpAura{ 0%{ transform:scale(.94); opacity:.7 } 50%{ transform:scale(1.06); opacity:1 } 100%{ transform:scale(.94); opacity:.7 } }
+.fp-stage img{ position:relative; z-index:2; max-height:410px; max-width:88%; object-fit:contain;
+   filter:drop-shadow(0 30px 54px rgba(50,20,90,.30)); transform-origin:50% 78%;
+   animation:fpSway 8.5s ease-in-out infinite }
+@keyframes fpSway{ 0%{ transform:translateY(0) rotate(-1deg) scale(1) }
+   50%{ transform:translateY(-9px) rotate(1deg) scale(1.014) } 100%{ transform:translateY(0) rotate(-1deg) scale(1) } }
+/* orbiting petals, very subtle */
+.fp-stage .orbit{ position:absolute; z-index:1; width:46px; object-fit:contain; opacity:.85;
+   filter:drop-shadow(0 8px 14px rgba(50,20,90,.26)); animation:fpOrbit 22s linear infinite }
+.fp-stage .orbit.b{ animation-duration:30s; animation-direction:reverse; width:34px; opacity:.7 }
+@keyframes fpOrbit{ from{ transform:rotate(0) translateX(200px) rotate(0) } to{ transform:rotate(360deg) translateX(200px) rotate(-360deg) } }
+
+.fp-eyebrow{ font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--fp-gold) }
+.fp-hero h1{ font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(44px,6.4vw,82px);
+   color:var(--fp-ink); line-height:1.0; margin:8px 0 6px }
+.fp-sub{ font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(18px,2.4vw,24px); color:#7a5fa6; margin-bottom:18px }
+.fp-power{ position:relative; font-family:'Cormorant Garamond',serif; font-size:clamp(20px,2.5vw,27px); line-height:1.4;
+   color:var(--fp-ink); padding:6px 0 6px 22px; border-left:2px solid var(--fp-gold); max-width:40ch; margin-bottom:18px }
+.fp-power .lbl{ display:block; font-family:'Manrope',sans-serif; font-style:normal; font-size:10px; letter-spacing:.22em;
+   text-transform:uppercase; color:var(--fp-gold); margin-bottom:6px }
+.fp-intro{ font-size:16.5px; line-height:1.85; color:#4f3a72; max-width:54ch }
+@media(max-width:880px){ .fp-hero{ grid-template-columns:1fr; padding-top:108px; gap:24px } .fp-stage{ min-height:320px; order:-1 } }
+
+/* ---------- editorial body ---------- */
+.fp-body{ position:relative; z-index:4; max-width:760px; margin:8px auto 0; padding:0 26px }
+.fp-section{ margin:30px 0 }
+.fp-section h2{ font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(25px,3.2vw,34px);
+   color:var(--fp-ink); margin:0 0 10px }
+.fp-section p{ font-size:16.5px; line-height:1.9; color:#4f3a72 }
+.fp-section .tag{ display:inline-block; margin-top:10px; font-size:9.5px; letter-spacing:.12em; text-transform:uppercase;
+   color:#9a7fc0; border:1px solid rgba(120,90,170,.3); border-radius:999px; padding:3px 11px }
+.fp-rule{ height:1px; border:0; margin:34px auto; max-width:120px;
+   background:linear-gradient(90deg, transparent, rgba(176,123,30,.5), transparent) }
+
+/* ---------- AEO answer + GEO definition cards ---------- */
+.fp-card{ background:rgba(255,255,255,.6); border:1px solid rgba(255,255,255,.9); border-radius:20px;
+   padding:24px 28px; box-shadow:0 16px 44px rgba(80,40,130,.10); backdrop-filter:blur(4px); margin:22px 0 }
+.fp-card .k{ font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--fp-gold); margin-bottom:8px }
+.fp-card .answer{ font-size:16px; line-height:1.8; color:#43286f }
+.fp-geo dl{ margin:0 } .fp-geo .pair{ display:flex; gap:12px; padding:8px 0; border-bottom:1px solid rgba(120,90,170,.14) }
+.fp-geo .pair:last-child{ border-bottom:0 }
+.fp-geo dt{ flex:none; width:118px; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:#9a7fc0; padding-top:2px }
+.fp-geo dd{ margin:0; font-size:14.5px; line-height:1.7; color:#4f3a72 }
+.fp-geo .pair.no dd{ color:#7a4b6a }
+
+/* ---------- FAQ accordion ---------- */
+.fp-faq{ max-width:760px; margin:6px auto; padding:0 26px }
+.fp-faq h2{ font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(25px,3.2vw,34px); color:var(--fp-ink); margin:6px 0 12px }
+.fp-q{ border-bottom:1px solid rgba(120,90,170,.2) }
+.fp-q > button{ width:100%; text-align:left; background:none; border:0; cursor:pointer; padding:16px 4px;
+   font-family:'Cormorant Garamond',serif; font-size:19px; color:var(--fp-ink); display:flex; justify-content:space-between; gap:14px; align-items:center }
+.fp-q > button .pl{ flex:none; color:var(--fp-gold); transition:transform .3s }
+.fp-q.open > button .pl{ transform:rotate(45deg) }
+.fp-q .a{ max-height:0; overflow:hidden; transition:max-height .4s ease; }
+.fp-q .a p{ font-size:15px; line-height:1.8; color:#4f3a72; padding:0 4px 16px }
+.fp-q.open .a{ max-height:320px }
+
+/* ---------- CTA + pairing + related ---------- */
+.fp-cta{ position:relative; z-index:4; text-align:center; max-width:760px; margin:30px auto; padding:34px 26px;
+   border-radius:24px; background:linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.2));
+   border:1px solid rgba(255,255,255,.8) }
+.fp-cta h3{ font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(26px,3.6vw,38px); color:var(--fp-ink); margin:0 0 6px }
+.fp-cta p{ font-size:15px; color:var(--fp-soft); margin-bottom:18px }
+.fp-enter{ display:inline-block; text-decoration:none; border-radius:999px; padding:15px 32px; font-size:12px;
+   letter-spacing:.16em; text-transform:uppercase; font-weight:600; color:#4a3110;
+   background:linear-gradient(135deg,#ffe39a,#ffc24d); box-shadow:0 12px 30px rgba(233,180,76,.42) }
+.fp-pair{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:18px }
+.fp-pair a{ text-decoration:none; color:#43286f; border:1px solid rgba(67,40,111,.28);
+   border-radius:16px; padding:10px 18px; transition:all .25s; display:flex; flex-direction:column; align-items:center; gap:2px }
+.fp-pair a .pn{ font-size:13px; font-family:'Cormorant Garamond',serif }
+.fp-pair a .pc{ font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:#9a7fc0 }
+.fp-pair a:hover{ background:#43286f; color:#fff } .fp-pair a:hover .pc{ color:rgba(255,255,255,.75) }
+.fp-formats{ max-width:54ch; margin:18px auto 0; font-size:12.5px; line-height:1.7; color:#7a5fa6 }
+.fp-formats strong{ color:#43286f; font-weight:500 }
+
+.fp-related{ max-width:760px; margin:10px auto 0; padding:0 26px; text-align:center }
+.fp-related .k{ font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--fp-gold); margin-bottom:12px }
+.fp-related .row{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap }
+.fp-related a{ text-decoration:none; color:#43286f; font-family:'Cormorant Garamond',serif; font-size:18px;
+   border:1px solid rgba(67,40,111,.22); border-radius:14px; padding:12px 22px; transition:all .3s }
+.fp-related a:hover{ background:rgba(255,255,255,.5); transform:translateY(-3px) }
+
+.fp-disclaim{ max-width:760px; margin:34px auto 0; padding:0 26px 70px; text-align:center;
+   font-size:11.5px; line-height:1.7; color:#8a72b0 }
+
+.fp-foot{ text-align:center; padding:26px; font-size:12px; color:#6b4f93;
+   border-top:1px solid rgba(120,90,170,.16) }

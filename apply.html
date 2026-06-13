@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apply to HANA Society — Begin Your Ritual Intake</title>
+<meta name="description" content="Apply to HANA Society and begin your Ritual Intake — a private, reflective conversation that guides a bespoke botanical ritual prepared for your current season of life.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/hana.css"><link rel="stylesheet" href="css/pages.css"><link rel="stylesheet" href="css/society.css">
+</head>
+<body class="world" data-page="apply">
+  <div class="ambient" id="ambient"></div>
+  <div class="world-head">
+    <div class="eyebrow">APPLY TO HANA SOCIETY</div>
+    <h1 class="serif">Begin your Ritual Intake</h1>
+    <p class="lead">HANA is application-only. Your application begins with the Ritual Intake &mdash; a private, reflective conversation that guides a bespoke botanical ritual, prepared for your current season of life. It is symbolic and reflective, never a diagnosis.</p>
+  </div>
+
+  <div class="apply-wrap">
+    <div class="apply-steps">
+      <div class="apply-step"><div class="n serif">01</div><div><h4>Apply</h4><p>Tell us a little about yourself and apply to join the Society.</p></div></div>
+      <div class="apply-step"><div class="n serif">02</div><div><h4>Ritual Intake</h4><p>Share your focus, the feelings and flowers you are drawn to, any sensitivities, and the season of life you are in.</p></div></div>
+      <div class="apply-step"><div class="n serif">03</div><div><h4>Private Consultation</h4><p>Meet one to one. Your emotional and botanical profile shapes a personalised flower and scent direction.</p></div></div>
+      <div class="apply-step"><div class="n serif">04</div><div><h4>Your bespoke preparation</h4><p>A handmade, small-batch preparation, created for you in the HANA Atelier, with a personalised ritual note.</p></div></div>
+    </div>
+    <a class="apply-cta" href="create-my-blend.html">Begin Your Ritual Intake</a>
+    <a class="apply-second" href="society.html">Or explore HANA Society membership</a>
+  </div>
+
+  <script src="js/config/colours.js"></script><script src="js/config/dialogue.js"></script><script src="js/site.js"></script>
+  <script>
+    var R=function(p){ return (window.HANA_ASSETS&&HANA_ASSETS[p])||p; };
+    SITE.applyColours(); SITE.nav('society'); SITE.footer();
+    (function(){ var pets=['rose','rose-red','lavender','lily','bluebell','dandelion']; var amb=document.getElementById('ambient');
+      for(var i=0;i<6;i++){ var im=document.createElement('img'); im.src=R('assets/flowers/petals/hero/'+pets[i%pets.length]+'.png');
+        im.style.left=(12+(i*15)%76)+'vw'; im.style.width=(34+(i%3)*16)+'px';
+        im.style.setProperty('--dx',((i%2?1:-1)*6)+'vw'); im.style.setProperty('--dr',(150+i*30)+'deg');
+        im.style.animationDuration=(19+i*2)+'s'; im.style.animationDelay=(-i*2.8)+'s'; amb.appendChild(im); } })();
+  </script>
+</body>
+</html>

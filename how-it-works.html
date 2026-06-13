@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Blooming Ritual Path — HANA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/hana.css"><link rel="stylesheet" href="css/pages.css">
+</head>
+<body class="world" data-page="how">
+  <div class="ambient" id="ambient"></div>
+  <div class="world-head">
+    <div class="eyebrow">THE BLOOMING RITUAL PATH</div>
+    <h1 class="serif">How HANA comes into bloom</h1>
+    <p class="lead">Four gentle steps, each carried by a single rose petal drifting in the HANA air. Nothing is a box; everything is a flower.</p>
+  </div>
+
+  <div class="ritualpath" id="path"></div>
+
+  <p style="text-align:center;position:relative;z-index:4;margin:-30px 0 70px"><a class="enter" style="display:inline-block;text-decoration:none" href="create-my-blend.html">Begin your ritual</a></p>
+
+  <script src="js/config/colours.js"></script><script src="js/config/dialogue.js"></script><script src="js/site.js"></script>
+  <script>
+    var R=function(p){ return (window.HANA_ASSETS&&HANA_ASSETS[p])||p; };
+    SITE.applyColours(); SITE.nav('how'); SITE.footer();
+
+    /* Four petals with the inscription ENGRAVED into the petal material (baked-in
+       assets: AI-generated debossed engraving, background removed). Each petal IS
+       the step — number, title and line are carved into the petal surface. */
+    var STEPS=[
+      { n:'01', t:'Share',   alt:'01 Share — Tell the garden how you feel',  lean:'-2deg' },
+      { n:'02', t:'Connect', alt:'02 Connect — Your flowers step forward',   lean:'2deg'  },
+      { n:'03', t:'Create',  alt:'03 Create — They compose your blend',      lean:'-2deg' },
+      { n:'04', t:'Receive', alt:'04 Receive — Bottled, and sent to you',    lean:'2deg'  }
+    ];
+    document.getElementById('path').innerHTML=STEPS.map(function(s){
+      return '<div class="steppetal engraved" style="--lean:'+s.lean+'">'+
+        '<img class="pet" src="'+R('assets/flowers/petals/engraved/'+s.n+'.png')+'" alt="'+s.alt+'"></div>';
+    }).join('');
+
+    (function(){
+      var pets=['rose','rose-red','lavender','lily','bluebell','dandelion'];
+      var amb=document.getElementById('ambient');
+      for(var i=0;i<8;i++){ var im=document.createElement('img'); im.src=R('assets/flowers/petals/hero/'+pets[i%pets.length]+'.png');
+        im.style.left=(8+(i*12)%84)+'vw'; im.style.width=(38+(i%3)*20)+'px';
+        im.style.setProperty('--dx',((i%2?1:-1)*(6+i%3*4))+'vw'); im.style.setProperty('--dr',(140+i*28)+'deg');
+        im.style.animationDuration=(17+i*2)+'s'; im.style.animationDelay=(-i*2.4)+'s'; amb.appendChild(im); }
+    })();
+  </script>
+</body>
+</html>
