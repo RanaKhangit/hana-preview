@@ -178,6 +178,16 @@ body{
 .journey .jd{width:8px;height:8px;border-radius:50%;background:var(--hana-gold);box-shadow:0 0 12px var(--hana-gold)}
 .journey .jl{font-size:10px;letter-spacing:.14em;text-transform:uppercase}
 
+/* ---------- home: premium society pathway line (static, non-interactive) ---------- */
+.home-path{position:fixed;top:82px;left:50%;transform:translateX(-50%);z-index:12;pointer-events:none;
+  display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:11px;row-gap:4px;max-width:94vw;text-align:center;
+  padding:8px 20px;border-radius:999px;background:rgba(58,33,96,.3);backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.16);box-shadow:0 8px 30px rgba(40,12,80,.28);
+  font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,236,196,.96);
+  text-shadow:0 1px 10px rgba(40,12,80,.7);opacity:1}
+.home-path i{font-style:normal;color:rgba(255,236,196,.5)}
+@media(max-width:760px){ .home-path{top:auto;bottom:104px;font-size:8.5px;letter-spacing:.12em;gap:6px;padding:7px 13px} }
+
 .restart{position:fixed;bottom:96px;right:34px;z-index:16;pointer-events:auto;
   background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.42);color:#fff;border-radius:999px;
   padding:9px 18px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;display:none}

@@ -26,7 +26,7 @@ window.EXPERIENCE = (function(){
     els.chips=el('chips');
     els.blend=el('blend');
     els.journey=el('journey');
-    ['Share','Connect','Create','Receive'].forEach(function(l,i){ var j=el('j'+(i===0?' on':''),els.journey); j.className='j'+(i===0?' on':'');
+    ['Apply','Ritual Intake','Consultation','Receive'].forEach(function(l,i){ var j=el('j'+(i===0?' on':''),els.journey); j.className='j'+(i===0?' on':'');
       var d=document.createElement('span'); d.className='jd'; var t=document.createElement('span'); t.className='jl'; t.textContent=l; j.appendChild(d); j.appendChild(t); });
     els.restart=el('restart',null,'button'); els.restart.textContent='start again'; els.restart.style.display='none';
     els.restart.onclick=restart;
