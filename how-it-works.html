@@ -28,10 +28,10 @@
        assets: AI-generated debossed engraving, background removed). Each petal IS
        the step — number, title and line are carved into the petal surface. */
     var STEPS=[
-      { n:'01', t:'Share',   alt:'01 Share — Tell the garden how you feel',  lean:'-2deg' },
-      { n:'02', t:'Connect', alt:'02 Connect — Your flowers step forward',   lean:'2deg'  },
-      { n:'03', t:'Create',  alt:'03 Create — They compose your blend',      lean:'-2deg' },
-      { n:'04', t:'Receive', alt:'04 Receive — Bottled, and sent to you',    lean:'2deg'  }
+      { n:'01', t:'Apply',         alt:'01 Apply — Apply to the Society',              lean:'-2deg' },
+      { n:'02', t:'Ritual Intake', alt:'02 Ritual Intake — Share your season of life', lean:'2deg'  },
+      { n:'03', t:'Consultation',  alt:'03 Consultation — Meet, one to one',           lean:'-2deg' },
+      { n:'04', t:'Receive',       alt:'04 Receive — Your bespoke preparation',        lean:'2deg'  }
     ];
     document.getElementById('path').innerHTML=STEPS.map(function(s){
       return '<div class="steppetal engraved" style="--lean:'+s.lean+'">'+
